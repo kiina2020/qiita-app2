@@ -1,7 +1,10 @@
 <template>
   <v-app dark>
     <v-app-bar :clipped-left="clipped" fixed app>
-      <v-toolbar-title v-text="title" />
+      <!-- FIXME あとでrefactor -->
+      <nuxt-link to="/">
+        <v-toolbar-title v-text="title" />
+      </nuxt-link>
       <v-spacer />
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
@@ -14,12 +17,14 @@
     </v-main>
     <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
-        <v-list-item>
-          <v-list-item-action>
-            <v-icon light> mdi-account-circle </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>My Page</v-list-item-title>
-        </v-list-item>
+        <nuxt-link to="/_userId">
+          <v-list-item>
+            <v-list-item-action>
+              <v-icon light> mdi-account-circle </v-icon>
+            </v-list-item-action>
+            <v-list-item-title>My Page</v-list-item-title>
+          </v-list-item>
+        </nuxt-link>
       </v-list>
     </v-navigation-drawer>
     <v-footer>
