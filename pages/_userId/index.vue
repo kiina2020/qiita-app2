@@ -2,9 +2,7 @@
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
       <v-card>
-        <v-card-title class="headline">
-          Nuxt.jsの環境構築手順まとめaaa
-        </v-card-title>
+        <v-card-title class="headline"> User!!!! </v-card-title>
         <v-card-text>
           <div class="text-xs-right">
             <em><small>&mdash; John Leider</small></em>
