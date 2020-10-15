@@ -1,16 +1,9 @@
 <template>
   <v-app dark>
-    <v-app-bar
-      :clipped-left="clipped"
-      fixed
-      app
-    >
+    <v-app-bar :clipped-left="clipped" fixed app>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
+      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
     </v-app-bar>
@@ -19,18 +12,11 @@
         <nuxt />
       </v-container>
     </v-main>
-    <v-navigation-drawer
-      v-model="rightDrawer"
-      :right="right"
-      temporary
-      fixed
-    >
+    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
         <v-list-item>
           <v-list-item-action>
-            <v-icon light>
-              mdi-account-circle
-            </v-icon>
+            <v-icon light> mdi-account-circle </v-icon>
           </v-list-item-action>
           <v-list-item-title>My Page</v-list-item-title>
         </v-list-item>
@@ -44,7 +30,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       clipped: false,
       right: true,

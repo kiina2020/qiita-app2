@@ -25,8 +25,8 @@ const store = {
       commit('setItems', { items })
     },
     setCurrentPage({ dispatch, commit }, page) {
-        commit('setCurrentPage', { page })
-        dispatch('fetchItems')
+      commit('setCurrentPage', { page })
+      dispatch('fetchItems')
     }
   }
 }
