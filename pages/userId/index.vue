@@ -2,19 +2,63 @@
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
       <v-card>
-        <v-card-title class="headline"> User!!!! </v-card-title>
+        <v-card-title class="headline"> user.name </v-card-title>
+        <hr />
         <v-card-text>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
+          <div>user.description</div>
+          <div>user.items_count</div>
+          <div>user.followees_count</div>
+          <div>user.followers_count</div>
           <br />
         </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/"> Continue </v-btn>
-        </v-card-actions>
+      </v-card>
+      <v-card>
+        <v-subheader>Posts</v-subheader>
+        <v-list three-line>
+          <template v-for="(item, index) in items">
+            <v-divider :key="index" />
+            <!-- <nuxt-link :to="{ name: 'postId', params: { postId: item.id }}">{{ item.title }}</nuxt-link> -->
+            <v-list-item :key="item.title">
+              <v-list-item-content>
+                <v-list-item-title v-html="item.title" />
+                <v-list-item-subtitle v-html="item.subtitle" />
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+        </v-list>
       </v-card>
     </v-col>
   </v-row>
 </template>
+<script>
+export default {
+  data: () => ({
+    items: [
+      {
+        title: '記事のタイトル',
+        subtitle: '記事の本文'
+      },
+      {
+        title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>',
+        subtitle:
+          "<span class='text--primary'>to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend."
+      },
+      {
+        title: 'Oui oui',
+        subtitle:
+          "<span class='text--primary'>Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?"
+      },
+      {
+        title: 'Birthday gift',
+        subtitle:
+          "<span class='text--primary'>Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?"
+      },
+      {
+        title: 'Recipe to try',
+        subtitle:
+          "<span class='text--primary'>Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos."
+      }
+    ]
+  })
+}
+</script>

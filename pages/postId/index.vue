@@ -9,7 +9,7 @@
           <div class="text-xs-right">
             <em><small>&mdash; John Leider</small></em>
           </div>
-          <hr class="my-3" />
+          <hr />
           <br />
         </v-card-text>
         <v-card-actions>
