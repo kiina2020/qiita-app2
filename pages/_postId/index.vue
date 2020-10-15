@@ -20,6 +20,7 @@
         </v-row>
         <hr />
         <v-card-text>
+          <!-- XSSの懸念はqiita apiに依存 -->
           <div class="card_rendered-body" v-html="post.rendered_body" />
         </v-card-text>
       </v-card>

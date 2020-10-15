@@ -17,7 +17,7 @@
     </v-main>
     <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
-        <nuxt-link to="/userId">
+        <nuxt-link :to="{ name: 'userId', params: { userId: 'nakia' } }">
           <v-list-item>
             <v-list-item-action>
               <v-icon light> mdi-account-circle </v-icon>
