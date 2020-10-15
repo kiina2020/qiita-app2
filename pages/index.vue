@@ -19,8 +19,8 @@
     </v-col>
     <v-col>
       <!-- <v-btn v-if="currentPage!==1" @click="showPrev" elevation="2">Prev</v-btn> -->
-      <v-btn elevation="2">Prev</v-btn>
-      <v-btn elevation="2">Next</v-btn>
+      <v-btn elevation="2"> Prev </v-btn>
+      <v-btn elevation="2"> Next </v-btn>
       <!-- <v-btn @click="showNext" elevation="2">Next</v-btn> -->
     </v-col>
   </v-row>

@@ -2,20 +2,20 @@
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
       <v-card>
-        <v-card-title class="headline"> user.name </v-card-title>
+        <v-card-title class="headline"> {{ user.id }} </v-card-title>
         <hr />
         <v-card-text>
-          <div>user.description</div>
-          <div>user.items_count</div>
-          <div>user.followees_count</div>
-          <div>user.followers_count</div>
+          <div>{{ user.description }}</div>
+          <div>投稿:{{ user.items_count }}</div>
+          <div>フォロー：{{ user.followees_count }}</div>
+          <div>フォロワー：{{ user.followers_count }}</div>
           <br />
         </v-card-text>
       </v-card>
       <v-card>
         <v-subheader>Posts</v-subheader>
         <v-list three-line>
-          <template v-for="(item, index) in items">
+          <template v-for="(item, index) in userItems">
             <v-divider :key="index" />
             <!-- <nuxt-link :to="{ name: 'postId', params: { postId: item.id }}">{{ item.title }}</nuxt-link> -->
             <v-list-item :key="item.title">
@@ -32,6 +32,17 @@
 </template>
 <script>
 export default {
+  async asyncData({ app }) {
+    // const user = await app.$axios.$get(`https://qiita.com/api/v2/users/${route.params.userId}`)
+    const user = await app.$axios.$get(`https://qiita.com/api/v2/users/nakia`)
+
+    const userItems = await app.$axios.$get(
+      `https://qiita.com/api/v2/users/nakia/items?page=1&per_page=20`
+    )
+    // const userItems = await app.$axios.$get(`https://qiita.com/api/v2/users/${route.params.userId}/items?page=1&per_page=10`)
+
+    return { user, userItems }
+  },
   data: () => ({
     items: [
       {
