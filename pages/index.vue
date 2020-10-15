@@ -5,10 +5,13 @@
         <div class="d-flex flex-no-wrap justify-space-between">
           <div>
             <v-card-title class="headline" v-text="item.title" />
+            <nuxt-link
+              :to="{ name: 'userId', params: { userId: item.user.id } }"
+            >
+              <v-card-subtitle v-text="item.user.id" />
+            </nuxt-link>
 
-            <v-card-subtitle v-text="item.userId" />
-
-            <v-card-text v-text="item.body" />
+            <v-card-text v-text="item.body.slice(0, 150)" />
 
             <v-card-actions>
               <!-- action -->
@@ -27,30 +30,27 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
+  async asyncData({ store }) {
+    if (store.getters['items'].length) {
+      return
+    }
+    await store.dispatch('fetchItems')
+  },
+  computed: {
+    ...mapGetters(['items']),
+    ...mapGetters(['currentPage'])
+  },
+  methods: {
+    onClickCard(postId) {
+      // 詳細に遷移
+      // this.$router.push({ path: `/${postId}`})
+      this.$router.push({ name: 'postId', params: { postId } })
+    }
+  },
   data: () => ({
-    items: [
-      {
-        title: 'item.title',
-        body: 'item.body.slice(0,150)',
-        userId: 'item.user.id'
-      },
-      {
-        title: 'item.title',
-        body: 'item.body.slice(0,150)',
-        userId: 'item.user.id'
-      },
-      {
-        title: 'item.title',
-        body: 'item.body.slice(0,150)',
-        userId: 'item.user.id'
-      },
-      {
-        title: 'Halcyon Days',
-        body: 'item.body.slice(0,150)',
-        userId: 'Ellie Goulding'
-      }
-    ]
+    //
   })
 }
 </script>
