@@ -1,21 +1,31 @@
 <template>
   <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
+    <v-col cols="12" sm="12" md="12">
       <v-card>
-        <v-card-title class="headline">
-          Nuxt.jsの環境構築手順まとめaaa
-        </v-card-title>
+        <v-row>
+          <v-col>
+            <v-card-title class="headline">
+              記事のタイトル post.title
+            </v-card-title>
+          </v-col>
+          <v-col>
+            <v-card-text>
+              <p>userId Kiina2020</p>
+            </v-card-text>
+          </v-col>
+        </v-row>
+        <hr />
         <v-card-text>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr />
+          <p>テキスト本文</p>
+          <p>テキスト本文</p>
+          <p>テキスト本文</p>
+          <p>テキスト本文</p>
+          <p>テキスト本文</p>
+          <p>テキスト本文</p>
+          <p>テキスト本文</p>
+          <p>テキスト本文</p>
           <br />
         </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/"> Continue </v-btn>
-        </v-card-actions>
       </v-card>
     </v-col>
   </v-row>
