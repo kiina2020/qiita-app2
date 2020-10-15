@@ -21,10 +21,10 @@
       </v-card>
     </v-col>
     <v-col>
-      <!-- <v-btn v-if="currentPage!==1" @click="showPrev" elevation="2">Prev</v-btn> -->
-      <v-btn elevation="2"> Prev </v-btn>
-      <v-btn elevation="2"> Next </v-btn>
-      <!-- <v-btn @click="showNext" elevation="2">Next</v-btn> -->
+      <v-btn v-if="currentPage !== 1" elevation="2" @click="showPrev">
+        Prev
+      </v-btn>
+      <v-btn elevation="2" @click="showNext"> Next </v-btn>
     </v-col>
   </v-row>
 </template>
@@ -47,6 +47,17 @@ export default {
       // 詳細に遷移
       // this.$router.push({ path: `/${postId}`})
       this.$router.push({ name: 'postId', params: { postId } })
+    },
+    async showNext() {
+      // FIXME:普通にparam.idを使ってrouter.pushした方がいい気がしてきた
+      const nextPage = this.currentPage + 1
+      // 次の10件を表示
+      this.$store.dispatch('setCurrentPage', nextPage)
+    },
+    async showPrev() {
+      const prevPage = this.currentPage - 1
+      // 前の10件を表示
+      this.$store.dispatch('setCurrentPage', prevPage)
     }
   },
   data: () => ({

@@ -38,7 +38,6 @@ export default {
     const user = await app.$axios.$get(
       `https://qiita.com/api/v2/users/${route.params.userId}`
     )
-    // const user = await app.$axios.$get(`https://qiita.com/api/v2/users/nakia`)
 
     const userItems = await app.$axios.$get(
       `https://qiita.com/api/v2/users/${route.params.userId}/items?page=1&per_page=20`
@@ -47,32 +46,7 @@ export default {
     return { user, userItems }
   },
   data: () => ({
-    items: [
-      {
-        title: '記事のタイトル',
-        subtitle: '記事の本文'
-      },
-      {
-        title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>',
-        subtitle:
-          "<span class='text--primary'>to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend."
-      },
-      {
-        title: 'Oui oui',
-        subtitle:
-          "<span class='text--primary'>Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?"
-      },
-      {
-        title: 'Birthday gift',
-        subtitle:
-          "<span class='text--primary'>Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?"
-      },
-      {
-        title: 'Recipe to try',
-        subtitle:
-          "<span class='text--primary'>Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos."
-      }
-    ]
+    //
   })
 }
 </script>
