@@ -31,18 +31,23 @@ const store = {
     },
     setToken(state, { token }) {
       state.token = token
+    },
+    deleteToken(state) {
+      state.token = ''
     }
   },
   actions: {
     async fetchToken({ commit }) {
-      console.log(
+      const { token } = await this.$axios.$post(
         `https://qiita.com/api/v2/access_tokens?client_id=${this.getters.clientId}&client_secret=${this.getters.clientSecret}&code=${this.getters.code}`
       )
-      const res = await this.$axios.$post(
-        `https://qiita.com/api/v2/access_tokens?client_id=${this.getters.clientId}&client_secret=${this.getters.clientSecret}&code=${this.getters.code}`
+      commit('setToken', { token })
+    },
+    async deleteToken({ commit }) {
+      await this.$axios.$delete(
+        `https://qiita.com/api/v2/access_tokens?access_token=${this.getters.token}`
       )
-      console.log(`res:${res}`)
-      commit('setToken', res.token)
+      commit('deleteToken')
     },
     async fetchItems({ commit }) {
       const items = await this.$axios.$get(

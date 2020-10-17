@@ -7,6 +7,7 @@
       </nuxt-link>
       <v-spacer />
       <v-btn color="green darken-1" @click="onClickLogin"> Login </v-btn>
+      <v-btn color="red darken-1" @click="onClickLogout"> Logout </v-btn>
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
@@ -52,6 +53,13 @@ export default {
   methods: {
     onClickLogin() {
       // アクセストークンがなかったら
+      // Qiita認証
+      // あとでstateを動的に
+      const authUrl = oauth.getAuthUrl(this.clientId, 'FEDCBA9876543210')
+      window.open(authUrl, '_blank', 'noopener noreferrer')
+    },
+    onClickLogout() {
+      // アクセストークンがあったら
       // Qiita認証
       // あとでstateを動的に
       const authUrl = oauth.getAuthUrl(this.clientId, 'FEDCBA9876543210')
