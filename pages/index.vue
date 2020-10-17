@@ -26,7 +26,7 @@
         Prev
       </v-btn>
       <v-btn elevation="2" @click="showNext"> Next </v-btn>
-      <v-dialog v-model="dialog" persistent max-width="290">
+      <!-- <v-dialog v-model="dialog" persistent max-width="290">
         <v-card>
           <v-card-title class="headline">
             認証画面に遷移しますか？
@@ -42,7 +42,7 @@
             </v-btn>
           </v-card-actions>
         </v-card>
-      </v-dialog>
+      </v-dialog> -->
     </v-col>
   </v-row>
 </template>
@@ -72,13 +72,13 @@ export default {
       this.$router.push({ name: 'postId', params: { postId } })
     },
     // モーダル表示制御
-    onAgreeDaialog() {
-      window.open(this.authUrl, '_blank', 'noopener noreferrer')
-      this.dialog = false
-    },
-    onDisagreeDaialog() {
-      this.dialog = false
-    },
+    // onAgreeDaialog() {
+    //   window.open(this.authUrl, '_blank', 'noopener noreferrer')
+    //   this.dialog = false
+    // },
+    // onDisagreeDaialog() {
+    //   this.dialog = false
+    // },
     async showNext() {
       // FIXME:普通にparam.idを使ってrouter.pushした方がいい気がしてきた
       const nextPage = this.currentPage + 1

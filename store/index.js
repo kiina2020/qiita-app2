@@ -3,11 +3,15 @@ import Vuex from 'vuex'
 const store = {
   state: {
     items: [],
-    currentPage: 1
+    currentPage: 1,
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET
   },
   getters: {
     items: state => state.items,
-    currentPage: state => state.currentPage
+    currentPage: state => state.currentPage,
+    clientId: state => state.clientId,
+    clientSecret: state => state.clientSecret
   },
   mutations: {
     setItems(state, { items }) {

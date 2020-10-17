@@ -6,6 +6,7 @@
         <v-toolbar-title v-text="title" />
       </nuxt-link>
       <v-spacer />
+      <v-btn color="green darken-1" @click="onClickLogin"> Login </v-btn>
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
@@ -20,7 +21,7 @@
         <nuxt-link :to="{ name: 'userId', params: { userId: 'nakia' } }">
           <v-list-item>
             <v-list-item-action>
-              <v-icon light> mdi-account-circle </v-icon>
+              <!-- <v-icon light> mdi-account-circle </v-icon> -->
             </v-list-item-action>
             <v-list-item-title>My Page</v-list-item-title>
           </v-list-item>
@@ -34,6 +35,8 @@
 </template>
 
 <script>
+import oauth from '~/plugins/oauth'
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -41,6 +44,17 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'Qiita-app2'
+    }
+  },
+  computed: {
+    ...mapGetters(['clientId'])
+  },
+  methods: {
+    onClickLogin() {
+      // アクセストークンがなかったら
+      // Qiita認証
+      const authUrl = oauth.getAuthUrl(this.clientId)
+      window.open(authUrl, '_blank', 'noopener noreferrer')
     }
   }
 }
