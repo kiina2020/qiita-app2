@@ -26,22 +26,19 @@
         Prev
       </v-btn>
       <v-btn elevation="2" @click="showNext"> Next </v-btn>
-      <!-- <VDialog :dialog="dialog" /> -->
       <v-dialog v-model="dialog" persistent max-width="290">
         <v-card>
           <v-card-title class="headline">
-            アプリケーションを認証しますか？
+            認証画面に遷移しますか？
           </v-card-title>
-          <v-card-text>
-            このアプリケーションは以下の情報にアクセスする可能性があります
-          </v-card-text>
+          <v-card-text> OKをクリックすると外部サイトに移動します </v-card-text>
           <v-card-actions>
             <v-spacer />
             <v-btn color="green darken-1" text @click="onDisagreeDaialog">
-              認証しない
+              NG
             </v-btn>
             <v-btn color="green darken-1" text @click="onAgreeDaialog">
-              認証する
+              OK
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -52,27 +49,22 @@
 
 <script>
 import { mapGetters } from 'vuex'
-// import VDialog from '~/components/VDialog/index'
+import oauth from '~/plugins/oauth'
 export default {
   async asyncData({ store }) {
-    const client_id = process.env.CLIENT_ID
-
     if (store.getters['items'].length) {
       return
     }
     await store.dispatch('fetchItems')
-    console.log(process.env.CLIENT_ID)
-    return { dialog: true, client_id }
+    const authUrl = oauth.getAuthUrl()
+    return { dialog: true, authUrl }
   },
+  data: () => ({
+    dialog: false
+  }),
   computed: {
     ...mapGetters(['items']),
-    ...mapGetters(['currentPage']),
-    getAuthUrl() {
-      const scope = 'read_qiita'
-      // FIXME:乱数つくる
-      const state = 'FEDCBA9876543210'
-      return `https://qiita.com/api/v2/oauth/authorize?client_id=${this.client_id}&scope=${scope}&state=${state}`
-    }
+    ...mapGetters(['currentPage'])
   },
   methods: {
     onClickCard(postId) {
@@ -81,8 +73,7 @@ export default {
     },
     // モーダル表示制御
     onAgreeDaialog() {
-      // FIXME readの認可が必要なページはすべて必要？
-      window.open(this.getAuthUrl, '_blank')
+      window.open(this.authUrl, '_blank', 'noopener noreferrer')
       this.dialog = false
     },
     onDisagreeDaialog() {
@@ -99,12 +90,6 @@ export default {
       // 前の10件を表示
       this.$store.dispatch('setCurrentPage', prevPage)
     }
-  },
-  // components: {
-  //   VDialog
-  // },
-  data: () => ({
-    dialog: false
-  })
+  }
 }
 </script>
