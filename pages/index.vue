@@ -49,36 +49,36 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import oauth from '~/plugins/oauth'
 export default {
-  async asyncData({ store }) {
+  async asyncData({ store, route }) {
+    if (route.query.code && route.query.state) {
+      const { code, state } = route.query
+      // 動的にstateを設定できる様にしたい
+      if (state === 'FEDCBA9876543210') {
+        // アクセストークン取得に使うためstoreに保存
+        await store.dispatch('setCode', code)
+        await store.dispatch('fetchToken')
+      }
+    }
     if (store.getters['items'].length) {
       return
     }
     await store.dispatch('fetchItems')
-    const authUrl = oauth.getAuthUrl()
-    return { dialog: true, authUrl }
+    return { dialog: true }
   },
   data: () => ({
     dialog: false
   }),
   computed: {
     ...mapGetters(['items']),
-    ...mapGetters(['currentPage'])
+    ...mapGetters(['currentPage']),
+    ...mapGetters(['token'])
   },
   methods: {
     onClickCard(postId) {
       // 詳細に遷移
       this.$router.push({ name: 'postId', params: { postId } })
     },
-    // モーダル表示制御
-    // onAgreeDaialog() {
-    //   window.open(this.authUrl, '_blank', 'noopener noreferrer')
-    //   this.dialog = false
-    // },
-    // onDisagreeDaialog() {
-    //   this.dialog = false
-    // },
     async showNext() {
       // FIXME:普通にparam.idを使ってrouter.pushした方がいい気がしてきた
       const nextPage = this.currentPage + 1

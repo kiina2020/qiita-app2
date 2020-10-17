@@ -53,7 +53,8 @@ export default {
     onClickLogin() {
       // アクセストークンがなかったら
       // Qiita認証
-      const authUrl = oauth.getAuthUrl(this.clientId)
+      // あとでstateを動的に
+      const authUrl = oauth.getAuthUrl(this.clientId, 'FEDCBA9876543210')
       window.open(authUrl, '_blank', 'noopener noreferrer')
     }
   }
