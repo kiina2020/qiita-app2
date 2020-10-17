@@ -30,19 +30,18 @@
       <v-dialog v-model="dialog" persistent max-width="290">
         <v-card>
           <v-card-title class="headline">
-            Use Google's location service?
+            アプリケーションを認証しますか？
           </v-card-title>
           <v-card-text>
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
+            このアプリケーションは以下の情報にアクセスする可能性があります
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="green darken-1" text @click="dialog = false">
-              Disagree
+            <v-btn color="green darken-1" text @click="onDisagreeDaialog">
+              認証しない
             </v-btn>
-            <v-btn color="green darken-1" text @click="dialog = false">
-              Agree
+            <v-btn color="green darken-1" text @click="onAgreeDaialog">
+              認証する
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -56,21 +55,38 @@ import { mapGetters } from 'vuex'
 // import VDialog from '~/components/VDialog/index'
 export default {
   async asyncData({ store }) {
+    const client_id = process.env.CLIENT_ID
+
     if (store.getters['items'].length) {
       return
     }
     await store.dispatch('fetchItems')
-    return { dialog: true }
+    console.log(process.env.CLIENT_ID)
+    return { dialog: true, client_id }
   },
   computed: {
     ...mapGetters(['items']),
-    ...mapGetters(['currentPage'])
+    ...mapGetters(['currentPage']),
+    getAuthUrl() {
+      const scope = 'read_qiita'
+      // FIXME:乱数つくる
+      const state = 'FEDCBA9876543210'
+      return `https://qiita.com/api/v2/oauth/authorize?client_id=${this.client_id}&scope=${scope}&state=${state}`
+    }
   },
   methods: {
     onClickCard(postId) {
       // 詳細に遷移
-      // this.$router.push({ path: `/${postId}`})
       this.$router.push({ name: 'postId', params: { postId } })
+    },
+    // モーダル表示制御
+    onAgreeDaialog() {
+      // FIXME readの認可が必要なページはすべて必要？
+      window.open(this.getAuthUrl, '_blank')
+      this.dialog = false
+    },
+    onDisagreeDaialog() {
+      this.dialog = false
     },
     async showNext() {
       // FIXME:普通にparam.idを使ってrouter.pushした方がいい気がしてきた
