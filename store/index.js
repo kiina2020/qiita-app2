@@ -8,7 +8,8 @@ const store = {
     clientSecret: process.env.CLIENT_SECRET,
     code: '',
     state: '',
-    token: ''
+    token: '',
+    authenticatedUser: ''
   },
   getters: {
     items: state => state.items,
@@ -17,7 +18,8 @@ const store = {
     clientSecret: state => state.clientSecret,
     code: state => state.code,
     state: state => state.state,
-    token: state => state.token
+    token: state => state.token,
+    authenticatedUser: state => state.authenticatedUser
   },
   mutations: {
     setItems(state, { items }) {
@@ -34,6 +36,9 @@ const store = {
     },
     deleteToken(state) {
       state.token = ''
+    },
+    setAuthenticatedUser(state, { authenticatedUser }) {
+      state.authenticatedUser = authenticatedUser
     }
   },
   actions: {
@@ -44,9 +49,13 @@ const store = {
       commit('setToken', { token })
     },
     async deleteToken({ commit }) {
-      await this.$axios.$delete(
-        `https://qiita.com/api/v2/access_tokens?access_token=${this.getters.token}`
-      )
+      await this.$axios
+        .$delete(
+          `https://qiita.com/api/v2/access_tokens?access_token=${this.getters.token}`
+        )
+        .then(() => {
+          location.reload()
+        })
       commit('deleteToken')
     },
     async fetchItems({ commit }) {
@@ -54,6 +63,12 @@ const store = {
         `https://qiita.com/api/v2/items?page=${this.getters.currentPage}&per_page=10`
       )
       commit('setItems', { items })
+    },
+    async fetchAuthenticatedUser({ commit }) {
+      const authenticatedUser = await this.$axios.$get(
+        `https://qiita.com/api/v2/authenticated_user`
+      )
+      commit('setAuthenticatedUser', { authenticatedUser })
     },
     setCurrentPage({ dispatch, commit }, page) {
       commit('setCurrentPage', { page })
