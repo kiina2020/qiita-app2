@@ -1,11 +1,9 @@
-export default function ({ store, route }) {
-  // ユーザーが認証されていないとき
-  if (!store.getters.client_id) {
-    // console.log(store.getters.clientId)
-  }
-
-  if (route.query.code && route.query.state) {
-    // 認可OKだった場合
+export default function ({ store, route, redirect }) {
+  if (store.getters.authenticatedUser.id) {
+    // ユーザーが認証済みならそのまま
+    return
+  } else if (route.query.code && route.query.state) {
+    // 認可済みならアクセストークン取得
     const { code, state } = route.query
     // FIXME:動的にstateを設定したい
     if (state === 'FEDCBA9876543210') {
@@ -21,12 +19,8 @@ export default function ({ store, route }) {
       })
     }
   } else {
+    // なにもしてないならログイン画面へ
     console.log('failed auth')
+    return redirect('/login')
   }
 }
-// export default function ({ store, redirect }) {
-//   // ユーザーが認証されていないとき
-//   if (!store.state.authenticated) {
-//     return redirect('/login')
-//   }
-// }

@@ -1,5 +1,6 @@
 <template>
   <v-row justify="center" align="center">
+    <p>{{ authenticatedUser.id }}でログイン中</p>
     <v-col v-for="(item, i) in items" :key="i" cols="12">
       <v-card
         hover
@@ -55,22 +56,17 @@ export default {
       return
     }
     await store.dispatch('fetchItems')
+    await store.dispatch('fetchAuthenticatedUser')
+
     return { dialog: true }
   },
   data: () => ({
     dialog: false
   }),
-  // async fetch({ store }) {
-  //   if (store.getters.authenticatedUser) {
-  //     console.log('getOK')
-  //   } else {
-  //     console.log('fetchUser')
-  //     await store.dispatch('fetchAuthenticatedUser')
-  //   }
-  // },
   computed: {
     ...mapGetters(['items']),
-    ...mapGetters(['currentPage'])
+    ...mapGetters(['currentPage']),
+    ...mapGetters(['authenticatedUser'])
   },
   methods: {
     onClickCard(postId) {
