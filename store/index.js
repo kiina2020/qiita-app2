@@ -39,6 +39,16 @@ const store = {
     },
     setAuthenticatedUser(state, { authenticatedUser }) {
       state.authenticatedUser = authenticatedUser
+    },
+    resetStore(state) {
+      state.items = []
+      state.currentPage = 1
+      state.clientId = process.env.CLIENT_ID
+      state.clientSecret = process.env.CLIENT_SECRET
+      state.code = ''
+      state.state = ''
+      state.token = ''
+      state.authenticatedUser = ''
     }
   },
   actions: {
@@ -46,18 +56,19 @@ const store = {
       const { token } = await this.$axios.$post(
         `https://qiita.com/api/v2/access_tokens?client_id=${this.getters.clientId}&client_secret=${this.getters.clientSecret}&code=${this.getters.code}`
       )
+      console.log('FetchToken:' + token)
       commit('setToken', { token })
+      // 3.認証済みUserの取得
+      this.fetchAuthenticatedUser
     },
     async deleteToken({ commit }) {
       this.$axios.setToken(this.getters.token, 'Bearer') //ログイン中のTokenに書き換え
-      await this.$axios
-        .$delete(
-          `https://qiita.com/api/v2/access_tokens?access_token=${this.getters.token}`
-        )
-        .then(() => {
-          location.reload()
-        })
+      await this.$axios.$delete(
+        `https://qiita.com/api/v2/access_tokens?access_token=${this.getters.token}`
+      )
       commit('deleteToken')
+      // storeクリア
+      this.resetStore
     },
     async fetchItems({ commit }) {
       this.$axios.setToken(this.getters.token, 'Bearer') //ログイン中のTokenに書き換え
@@ -67,6 +78,7 @@ const store = {
       commit('setItems', { items })
     },
     async fetchAuthenticatedUser({ commit }) {
+      console.log(`axiosModules:${JSON.stringify(this.$axios)}`)
       this.$axios.setToken(this.getters.token, 'Bearer') //ログイン中のTokenに書き換え
       const authenticatedUser = await this.$axios.$get(
         `https://qiita.com/api/v2/authenticated_user`
@@ -79,6 +91,9 @@ const store = {
     },
     setCode({ commit }, code) {
       commit('setCode', { code })
+    },
+    resetStore({ commit }) {
+      commit('resetStore')
     }
   }
 }

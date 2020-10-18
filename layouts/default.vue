@@ -8,16 +8,7 @@
       <v-spacer />
 
       <p v-if="authenticatedUser.id">welcome, {{ authenticatedUser.id }}!!</p>
-      <v-btn
-        v-if="authenticatedUser.id"
-        color="red darken-1"
-        @click="onClickLogout"
-      >
-        Logout
-      </v-btn>
-
-      <v-btn color="green darken-1" @click="onClickLogin"> Login </v-btn>
-
+      <v-btn color="red darken-1" @click="onClickLogout"> Logout </v-btn>
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
@@ -46,7 +37,6 @@
 </template>
 
 <script>
-import oauth from '~/plugins/oauth'
 import { mapGetters } from 'vuex'
 export default {
   data() {
@@ -63,15 +53,10 @@ export default {
     ...mapGetters(['authenticatedUser'])
   },
   methods: {
-    onClickLogin() {
-      // Qiita認証
-      // あとでstateを動的に
-      const authUrl = oauth.getAuthUrl(this.clientId, 'FEDCBA9876543210')
-      window.open(authUrl, '_blank', 'noopener noreferrer')
-    },
     onClickLogout() {
       // アクセストークン削除
       this.$store.dispatch('deleteToken')
+      this.$router.push({ name: 'login' })
     }
   }
 }
