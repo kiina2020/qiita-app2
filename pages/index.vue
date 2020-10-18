@@ -69,6 +69,14 @@ export default {
   data: () => ({
     dialog: false
   }),
+  async fetch({ store }) {
+    if (store.getters.authenticatedUser) {
+      console.log('getOK')
+    } else {
+      console.log('fetchUser')
+      await store.dispatch('fetchAuthenticatedUser')
+    }
+  },
   computed: {
     ...mapGetters(['items']),
     ...mapGetters(['currentPage']),

@@ -6,11 +6,18 @@
         <v-toolbar-title v-text="title" />
       </nuxt-link>
       <v-spacer />
-      <p>welcome!</p>
-      <v-btn v-if="!!token" color="red darken-1" @click="onClickLogout">
+
+      <p v-if="authenticatedUser.id">welcome, {{ authenticatedUser.id }}!!</p>
+      <v-btn
+        v-if="authenticatedUser.id"
+        color="red darken-1"
+        @click="onClickLogout"
+      >
         Logout
       </v-btn>
-      <v-btn v-else color="green darken-1" @click="onClickLogin"> Login </v-btn>
+
+      <v-btn color="green darken-1" @click="onClickLogin"> Login </v-btn>
+
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
@@ -52,7 +59,8 @@ export default {
   },
   computed: {
     ...mapGetters(['clientId']),
-    ...mapGetters(['token'])
+    ...mapGetters(['token']),
+    ...mapGetters(['authenticatedUser'])
   },
   methods: {
     onClickLogin() {
