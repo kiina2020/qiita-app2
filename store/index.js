@@ -59,12 +59,12 @@ const store = {
       console.log('FetchToken:' + token)
       commit('setToken', { token })
       // 3.認証済みUserの取得
-      this.fetchAuthenticatedUser
+      // this.fetchAuthenticatedUser
     },
     async deleteToken({ commit }) {
       this.$axios.setToken(this.getters.token, 'Bearer') //ログイン中のTokenに書き換え
       await this.$axios.$delete(
-        `https://qiita.com/api/v2/access_tokens?access_token=${this.getters.token}`
+        `https://qiita.com/api/v2/access_tokens/${this.getters.token}`
       )
       commit('deleteToken')
       // storeクリア

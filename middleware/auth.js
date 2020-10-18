@@ -1,5 +1,5 @@
 export default function ({ store, route, redirect }) {
-  if (store.getters.authenticatedUser.id) {
+  if (store.getters.token) {
     console.log('認証済み')
     // ユーザーが認証済みならそのまま
     return
@@ -14,11 +14,16 @@ export default function ({ store, route, redirect }) {
       // 2.アクセストークンを取得しstoreに格納
       store.dispatch('fetchToken').then(() => {
         console.log('auth token:' + store.getters.token)
+        // 3.認証済みUserの取得
+        store
+          .dispatch('fetchAuthenticatedUser')
+          .then(() => {
+            console.log('auth user:' + store.getters.authenticatedUser.id)
+          })
+          .then(() => {
+            redirect('/complete')
+          })
       })
-      // 3.認証済みUserの取得
-      // store.dispatch('fetchAuthenticatedUser').then(() => {
-      //   console.log('auth user:' + store.getters.authenticatedUser.id)
-      // })
     }
   } else {
     // なにもしてないならログイン画面へ
