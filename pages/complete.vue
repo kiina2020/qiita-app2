@@ -17,6 +17,7 @@
 
 <script>
 export default {
+  middleware: 'auth',
   methods: {
     onClickStart() {
       this.$router.push({ name: 'index' })

@@ -65,12 +65,10 @@ const store = {
       commit('setItems', { items })
     },
     async fetchAuthenticatedUser({ commit }) {
-      console.log(`token:${this.getters.token}`)
       this.$axios.setToken(this.getters.token, 'Bearer')
       const authenticatedUser = await this.$axios.$get(
         `https://qiita.com/api/v2/authenticated_user`
       )
-      console.log('authenticatedUser:' + authenticatedUser)
       commit('setAuthenticatedUser', { authenticatedUser })
     },
     setCurrentPage({ dispatch, commit }, page) {
