@@ -49,6 +49,7 @@ const store = {
       commit('setToken', { token })
     },
     async deleteToken({ commit }) {
+      this.$axios.setToken(this.getters.token, 'Bearer') //ログイン中のTokenに書き換え
       await this.$axios
         .$delete(
           `https://qiita.com/api/v2/access_tokens?access_token=${this.getters.token}`
@@ -59,13 +60,14 @@ const store = {
       commit('deleteToken')
     },
     async fetchItems({ commit }) {
+      this.$axios.setToken(this.getters.token, 'Bearer') //ログイン中のTokenに書き換え
       const items = await this.$axios.$get(
         `https://qiita.com/api/v2/items?page=${this.getters.currentPage}&per_page=10`
       )
       commit('setItems', { items })
     },
     async fetchAuthenticatedUser({ commit }) {
-      this.$axios.setToken(this.getters.token, 'Bearer')
+      this.$axios.setToken(this.getters.token, 'Bearer') //ログイン中のTokenに書き換え
       const authenticatedUser = await this.$axios.$get(
         `https://qiita.com/api/v2/authenticated_user`
       )

@@ -50,16 +50,7 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  async asyncData({ store, route }) {
-    if (route.query.code && route.query.state) {
-      const { code, state } = route.query
-      // 動的にstateを設定できる様にしたい
-      if (state === 'FEDCBA9876543210') {
-        // アクセストークン取得に使うためstoreに保存
-        await store.dispatch('setCode', code)
-        await store.dispatch('fetchToken')
-      }
-    }
+  async asyncData({ store }) {
     if (store.getters['items'].length) {
       return
     }
@@ -69,18 +60,17 @@ export default {
   data: () => ({
     dialog: false
   }),
-  async fetch({ store }) {
-    if (store.getters.authenticatedUser) {
-      console.log('getOK')
-    } else {
-      console.log('fetchUser')
-      await store.dispatch('fetchAuthenticatedUser')
-    }
-  },
+  // async fetch({ store }) {
+  //   if (store.getters.authenticatedUser) {
+  //     console.log('getOK')
+  //   } else {
+  //     console.log('fetchUser')
+  //     await store.dispatch('fetchAuthenticatedUser')
+  //   }
+  // },
   computed: {
     ...mapGetters(['items']),
-    ...mapGetters(['currentPage']),
-    ...mapGetters(['token'])
+    ...mapGetters(['currentPage'])
   },
   methods: {
     onClickCard(postId) {
