@@ -20,7 +20,12 @@
     </v-main>
     <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
-        <nuxt-link :to="{ name: 'userId', params: { userId: 'nakia' } }">
+        <nuxt-link
+          :to="{
+            name: 'userId',
+            params: { userId: authenticatedUser.id }
+          }"
+        >
           <v-list-item>
             <v-list-item-action>
               <!-- <v-icon light> mdi-account-circle </v-icon> -->
