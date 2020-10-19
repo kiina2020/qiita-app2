@@ -51,13 +51,13 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  middleware: 'auth',
+  // middleware: 'auth',
   async asyncData({ store }) {
     if (store.getters['items'].length) {
       return
     }
     await store.dispatch('fetchItems')
-    await store.dispatch('fetchAuthenticatedUser')
+    // await store.dispatch('fetchAuthenticatedUser')
 
     return { dialog: true }
   },

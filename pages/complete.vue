@@ -16,8 +16,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   middleware: 'auth',
+  computed: {
+    ...mapGetters(['token'])
+  },
+  mounted() {
+    console.log('token;' + this.token)
+  },
   methods: {
     onClickStart() {
       this.$router.push({ name: 'index' })

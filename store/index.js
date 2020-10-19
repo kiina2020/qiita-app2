@@ -56,13 +56,11 @@ const store = {
       const { token } = await this.$axios.$post(
         `https://qiita.com/api/v2/access_tokens?client_id=${this.getters.clientId}&client_secret=${this.getters.clientSecret}&code=${this.getters.code}`
       )
-      console.log('FetchToken:' + token)
       commit('setToken', { token })
-      // 3.認証済みUserの取得
-      // this.fetchAuthenticatedUser
+      console.log('fetchToken:' + this.getters.token)
     },
     async deleteToken({ commit }) {
-      this.$axios.setToken(this.getters.token, 'Bearer') //ログイン中のTokenに書き換え
+      // this.$axios.setToken(this.getters.token, 'Bearer') //ログイン中のTokenに書き換え
       await this.$axios.$delete(
         `https://qiita.com/api/v2/access_tokens/${this.getters.token}`
       )
@@ -71,19 +69,19 @@ const store = {
       this.resetStore
     },
     async fetchItems({ commit }) {
-      this.$axios.setToken(this.getters.token, 'Bearer') //ログイン中のTokenに書き換え
+      // this.$axios.setToken(this.getters.token, 'Bearer') //ログイン中のTokenに書き換え
       const items = await this.$axios.$get(
         `https://qiita.com/api/v2/items?page=${this.getters.currentPage}&per_page=10`
       )
       commit('setItems', { items })
     },
     async fetchAuthenticatedUser({ commit }) {
-      console.log(`axiosModules:${JSON.stringify(this.$axios)}`)
-      this.$axios.setToken(this.getters.token, 'Bearer') //ログイン中のTokenに書き換え
+      // this.$axios.setToken(this.getters.token, 'Bearer') //ログイン中のTokenに書き換え
       const authenticatedUser = await this.$axios.$get(
-        `https://qiita.com/api/v2/authenticated_user`
+        'https://qiita.com/api/v2/authenticated_user'
       )
       commit('setAuthenticatedUser', { authenticatedUser })
+      console.log(`authenticatedUser:${JSON.stringify(authenticatedUser)}`)
     },
     setCurrentPage({ dispatch, commit }, page) {
       commit('setCurrentPage', { page })
