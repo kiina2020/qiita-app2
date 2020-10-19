@@ -36,19 +36,10 @@ const store = {
     },
     deleteToken(state) {
       state.token = ''
+      state.code = ''
     },
     setAuthenticatedUser(state, { authenticatedUser }) {
       state.authenticatedUser = authenticatedUser
-    },
-    resetStore(state) {
-      state.items = []
-      state.currentPage = 1
-      state.clientId = process.env.CLIENT_ID
-      state.clientSecret = process.env.CLIENT_SECRET
-      state.code = ''
-      state.state = ''
-      state.token = ''
-      state.authenticatedUser = ''
     }
   },
   actions: {
@@ -65,8 +56,6 @@ const store = {
         `https://qiita.com/api/v2/access_tokens/${this.getters.token}`
       )
       commit('deleteToken')
-      // storeクリア
-      this.resetStore
     },
     async fetchItems({ commit }) {
       // this.$axios.setToken(this.getters.token, 'Bearer') //ログイン中のTokenに書き換え
@@ -89,9 +78,6 @@ const store = {
     },
     setCode({ commit }, code) {
       commit('setCode', { code })
-    },
-    resetStore({ commit }) {
-      commit('resetStore')
     }
   }
 }

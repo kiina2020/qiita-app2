@@ -23,7 +23,7 @@ export default {
           `https://qiita.com/api/v2/access_tokens?client_id=${this.clientId}&client_secret=${this.clientSecret}&code=${this.code}`
         )
         this.setToken({ token })
-        console.log('callbacktoken:' + this.token)
+        console.log('callback token:' + this.token)
       }
       this.$router.replace('/complete')
     } catch (error) {
