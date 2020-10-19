@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" align="center">
-    <p>{{ authenticatedUser.id }}でログイン中</p>
+    <!-- <p>{{ authenticatedUser.id }}でログイン中</p> -->
     <v-col v-for="(item, i) in items" :key="i" cols="12">
       <v-card
         hover
