@@ -37,19 +37,13 @@ const store = {
     deleteToken(state) {
       state.token = ''
       state.code = ''
+      state.authenticatedUser = ''
     },
     setAuthenticatedUser(state, { authenticatedUser }) {
       state.authenticatedUser = authenticatedUser
     }
   },
   actions: {
-    async fetchToken({ commit }) {
-      const { token } = await this.$axios.$post(
-        `https://qiita.com/api/v2/access_tokens?client_id=${this.getters.clientId}&client_secret=${this.getters.clientSecret}&code=${this.getters.code}`
-      )
-      commit('setToken', { token })
-      console.log('fetchToken:' + this.getters.token)
-    },
     async deleteToken({ commit }) {
       // this.$axios.setToken(this.getters.token, 'Bearer') //ログイン中のTokenに書き換え
       await this.$axios.$delete(
@@ -63,14 +57,6 @@ const store = {
         `https://qiita.com/api/v2/items?page=${this.getters.currentPage}&per_page=10`
       )
       commit('setItems', { items })
-    },
-    async fetchAuthenticatedUser({ commit }) {
-      // this.$axios.setToken(this.getters.token, 'Bearer') //ログイン中のTokenに書き換え
-      const authenticatedUser = await this.$axios.$get(
-        'https://qiita.com/api/v2/authenticated_user'
-      )
-      commit('setAuthenticatedUser', { authenticatedUser })
-      console.log(`authenticatedUser:${JSON.stringify(authenticatedUser)}`)
     },
     setCurrentPage({ dispatch, commit }, page) {
       commit('setCurrentPage', { page })

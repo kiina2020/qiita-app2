@@ -57,7 +57,6 @@ export default {
       return
     }
     await store.dispatch('fetchItems')
-    // await store.dispatch('fetchAuthenticatedUser')
 
     return { dialog: true }
   },

@@ -30,6 +30,7 @@ export default {
           'https://qiita.com/api/v2/authenticated_user'
         )
         this.setAuthenticatedUser({ authenticatedUser })
+        // ログイン完了画面に遷移
         this.$router.push({ name: 'complete' })
       } else {
         console.log('missing state')
