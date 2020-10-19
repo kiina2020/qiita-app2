@@ -2,12 +2,15 @@
   <v-app dark>
     <v-app-bar :clipped-left="clipped" fixed app>
       <!-- FIXME あとでrefactor -->
-      <nuxt-link to="/">
-        <v-toolbar-title v-text="title" />
+      <nuxt-link :to="{ name: 'index' }">
+        <v-toolbar-title class="top-link" v-text="title" />
       </nuxt-link>
       <v-spacer />
 
-      <p v-if="authenticatedUser.id">welcome, {{ authenticatedUser.id }}!!</p>
+      <p v-if="authenticatedUser.id" class="login-name">
+        welcome, {{ authenticatedUser.id }}！
+      </p>
+      <v-spacer />
       <v-btn color="red darken-1" @click="onClickLogout"> Logout </v-btn>
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
@@ -67,3 +70,11 @@ export default {
   }
 }
 </script>
+<style>
+.top-link {
+  color: cyan;
+}
+.login-name {
+  margin-bottom: 0;
+}
+</style>
