@@ -3,7 +3,9 @@
     <v-col>
       <v-card width="400px" class="mx-auto mt-5">
         <v-card-title>
-          <h1 class="display-1">Login completed！</h1>
+          <h1 class="display-1">
+            Login completed！ {{ authenticatedUser.name }}
+          </h1>
         </v-card-title>
         <v-card-text>
           <v-card-actions>
@@ -20,10 +22,7 @@ import { mapGetters } from 'vuex'
 export default {
   middleware: 'auth',
   computed: {
-    ...mapGetters(['token'])
-  },
-  mounted() {
-    console.log('token;' + this.token)
+    ...mapGetters(['authenticatedUser'])
   },
   methods: {
     onClickStart() {
