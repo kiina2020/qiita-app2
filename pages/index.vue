@@ -44,7 +44,7 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  // middleware: 'auth',
+  middleware: 'auth',
   async asyncData({ store }) {
     if (store.getters['items'].length) {
       return

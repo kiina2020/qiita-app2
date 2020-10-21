@@ -17,7 +17,12 @@ export default {
   css: [],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ['~/plugins/axios.js', '~/plugins/oauth.js'],
+  plugins: [
+    '~/plugins/axios.js',
+    '~/plugins/oauth.js',
+    { src: '~plugins/persistedstate.js', ssr: false },
+    { src: '~/plugins/cookie-storage.js' }
+  ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
