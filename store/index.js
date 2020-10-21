@@ -7,7 +7,7 @@ const store = {
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     code: '',
-    state: '',
+    authState: '',
     token: '',
     authenticatedUser: ''
   },
@@ -17,7 +17,7 @@ const store = {
     clientId: state => state.clientId,
     clientSecret: state => state.clientSecret,
     code: state => state.code,
-    state: state => state.state,
+    authState: state => state.authState,
     token: state => state.token,
     authenticatedUser: state => state.authenticatedUser
   },
@@ -31,12 +31,16 @@ const store = {
     setCode(state, { code }) {
       state.code = code
     },
+    setAuthState(state, { authState }) {
+      state.authState = authState
+    },
     setToken(state, { token }) {
       state.token = token
     },
     deleteToken(state) {
       state.token = ''
       state.code = ''
+      state.authState = ''
       state.authenticatedUser = ''
     },
     setAuthenticatedUser(state, { authenticatedUser }) {

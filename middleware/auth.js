@@ -1,5 +1,4 @@
 export default function ({ store, route, redirect }) {
-  console.log('AUTH:' + JSON.stringify(route.path))
   if (store.getters.token) {
     // 認証済みならリダイレクトしない
     return
