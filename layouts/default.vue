@@ -7,37 +7,26 @@
       </nuxt-link>
       <v-spacer />
 
-      <p v-if="authenticatedUser.id" class="login-name">
-        welcome, {{ authenticatedUser.id }}！
-      </p>
-      <v-spacer />
+      <span v-if="authenticatedUser.id" class="login-name">
+        {{ authenticatedUser.id }}
+      </span>
+      <nuxt-link
+        :to="{
+          name: 'userId',
+          params: { userId: authenticatedUser.id }
+        }"
+      >
+        <v-btn icon>
+          <v-icon>mdi-account-circle</v-icon>
+        </v-btn>
+      </nuxt-link>
       <v-btn color="red darken-1" @click="onClickLogout"> Logout </v-btn>
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
         <nuxt />
       </v-container>
     </v-main>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
-      <v-list>
-        <nuxt-link
-          :to="{
-            name: 'userId',
-            params: { userId: authenticatedUser.id }
-          }"
-        >
-          <v-list-item>
-            <v-list-item-action>
-              <!-- <v-icon light> mdi-account-circle </v-icon> -->
-            </v-list-item-action>
-            <v-list-item-title>My Page</v-list-item-title>
-          </v-list-item>
-        </nuxt-link>
-      </v-list>
-    </v-navigation-drawer>
     <v-footer>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
@@ -72,7 +61,7 @@ export default {
 </script>
 <style>
 .top-link {
-  color: cyan;
+  color: white;
 }
 .login-name {
   margin-bottom: 0;

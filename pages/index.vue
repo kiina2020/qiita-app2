@@ -23,27 +23,19 @@
       </v-card>
     </v-col>
     <v-col>
-      <v-btn v-if="currentPage !== 1" elevation="2" @click="showPrev">
-        Prev
-      </v-btn>
-      <v-btn elevation="2" @click="showNext"> Next </v-btn>
-      <!-- <v-dialog v-model="dialog" persistent max-width="290">
-        <v-card>
-          <v-card-title class="headline">
-            認証画面に遷移しますか？
-          </v-card-title>
-          <v-card-text> OKをクリックすると外部サイトに移動します </v-card-text>
-          <v-card-actions>
-            <v-spacer />
-            <v-btn color="green darken-1" text @click="onDisagreeDaialog">
-              NG
-            </v-btn>
-            <v-btn color="green darken-1" text @click="onAgreeDaialog">
-              OK
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog> -->
+      <v-row>
+        <v-col>
+          <v-btn v-if="currentPage !== 1" elevation="2" @click="showPrev">
+            Prev
+          </v-btn>
+        </v-col>
+        <v-spacer />
+        <v-col class="next-button-wrapper" justify="right" align="right">
+          <v-btn class="next-button" elevation="2" @click="showNext">
+            Next
+          </v-btn>
+        </v-col>
+      </v-row>
     </v-col>
   </v-row>
 </template>
@@ -87,3 +79,4 @@ export default {
   }
 }
 </script>
+<style></style>
