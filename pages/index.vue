@@ -1,6 +1,5 @@
 <template>
   <v-row justify="center" align="center">
-    <!-- <p>{{ authenticatedUser.id }}でログイン中</p> -->
     <v-col v-for="(item, i) in items" :key="i" cols="12">
       <v-card
         hover
@@ -11,13 +10,15 @@
       >
         <div class="d-flex flex-no-wrap justify-space-between">
           <div>
-            <v-card-title class="headline" v-text="item.title" />
-            <v-card-subtitle v-text="item.user.id" />
+            <v-row>
+              <v-col cols="10" sm="10" md="10">
+                <v-card-title class="headline" v-text="item.title" />
+              </v-col>
+              <v-col justify="right" align="right">
+                <v-card-subtitle class="user-id" v-text="item.user.id" />
+              </v-col>
+            </v-row>
             <v-card-text v-text="item.body.slice(0, 150)" />
-
-            <v-card-actions>
-              <!-- action -->
-            </v-card-actions>
           </div>
         </div>
       </v-card>
@@ -79,4 +80,9 @@ export default {
   }
 }
 </script>
-<style></style>
+<style>
+.user-id {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+</style>
