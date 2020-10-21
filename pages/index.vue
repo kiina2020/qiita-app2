@@ -3,22 +3,22 @@
     <v-col v-for="(item, i) in items" :key="i" cols="12">
       <v-card
         hover
+        class="card"
         :to="{ name: 'postId', params: { postId: item.id } }"
-        color="#1F7087"
         dark
         @click="onClickCard(item.id)"
       >
         <div class="d-flex flex-no-wrap justify-space-between">
           <div>
             <v-row>
-              <v-col cols="10" sm="10" md="10">
+              <v-col cols="12" sm="12" md="12">
                 <v-card-title class="headline" v-text="item.title" />
               </v-col>
               <v-col justify="right" align="right">
                 <v-card-subtitle class="user-id" v-text="item.user.id" />
               </v-col>
             </v-row>
-            <v-card-text v-text="item.body.slice(0, 150)" />
+            <v-card-text v-text="`${item.body.slice(0, 150)}......`" />
           </div>
         </div>
       </v-card>
@@ -83,5 +83,11 @@ export default {
 .user-id {
   padding-bottom: 0;
   padding-top: 0;
+}
+
+.card:hover {
+  color: #ffffff;
+  background-color: #1f7087;
+  cursor: pointer;
 }
 </style>

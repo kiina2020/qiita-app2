@@ -1,24 +1,25 @@
 <template>
   <v-app dark>
     <v-app-bar :clipped-left="clipped" fixed app>
-      <nuxt-link :to="{ name: 'index' }">
+      <nuxt-link class="link" :to="{ name: 'index' }">
         <v-toolbar-title class="top-link" v-text="title" />
       </nuxt-link>
       <v-spacer />
 
-      <span v-if="authenticatedUser.id" class="login-name">
-        {{ authenticatedUser.id }}
-      </span>
       <nuxt-link
         :to="{
           name: 'userId',
           params: { userId: authenticatedUser.id }
         }"
+        class="link"
       >
         <v-btn icon>
           <v-icon>mdi-account-circle</v-icon>
         </v-btn>
       </nuxt-link>
+      <span v-if="authenticatedUser.id" class="login-name">
+        {{ authenticatedUser.id }}
+      </span>
       <v-btn color="red darken-1" @click="onClickLogout"> Logout </v-btn>
     </v-app-bar>
     <v-main>
@@ -62,7 +63,15 @@ export default {
 .top-link {
   color: white;
 }
+.top-link:hover {
+  background-color: #383838;
+}
+
 .login-name {
   margin-bottom: 0;
+  margin-right: 10px;
+}
+.link {
+  text-decoration: none;
 }
 </style>
