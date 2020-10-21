@@ -1,4 +1,5 @@
 <template>
+  <!-- 使ってないページ -->
   <v-row justify="center" align="center">
     <v-col>
       <v-card width="400px" class="mx-auto mt-5">

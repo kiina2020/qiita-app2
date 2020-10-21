@@ -1,5 +1,5 @@
 <template>
-  <p>callback</p>
+  <p>please wait ...</p>
 </template>
 
 <script>
@@ -30,8 +30,8 @@ export default {
           'https://qiita.com/api/v2/authenticated_user'
         )
         this.setAuthenticatedUser({ authenticatedUser })
-        // ログイン完了画面に遷移
-        this.$router.push({ name: 'complete' })
+        // 一覧画面に遷移
+        this.$router.push({ name: 'index' })
       } else {
         console.log('missing state')
       }

@@ -67,7 +67,6 @@ export default {
       this.$router.push({ name: 'postId', params: { postId } })
     },
     async showNext() {
-      // FIXME:普通にparam.idを使ってrouter.pushした方がいい気がしてきた
       const nextPage = this.currentPage + 1
       // 次の10件を表示
       this.$store.dispatch('setCurrentPage', nextPage)

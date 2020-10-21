@@ -1,7 +1,6 @@
 <template>
   <v-app dark>
     <v-app-bar :clipped-left="clipped" fixed app>
-      <!-- FIXME あとでrefactor -->
       <nuxt-link :to="{ name: 'index' }">
         <v-toolbar-title class="top-link" v-text="title" />
       </nuxt-link>

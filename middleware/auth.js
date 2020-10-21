@@ -1,14 +1,13 @@
 export default function ({ store, route, redirect }) {
   console.log('AUTH:' + JSON.stringify(route.path))
   if (store.getters.token) {
-    console.log('認証済み')
-    // ユーザーが認証済みならそのまま
+    // 認証済みならリダイレクトしない
     return
   } else if (route.query.code && route.query.state) {
-    console.log('認可済み')
-    console.log('route.query:' + JSON.stringify(route.query))
+    // 未認証でも認可済みならリダイレクトしない（コールバック処理）
+    // console.log('route.query:' + JSON.stringify(route.query))
   } else {
-    // なにもしてないならログイン画面へ
+    // 認可もしてなかったらログイン画面にリダイレクト
     console.log('failed auth')
     return redirect('/login')
   }
