@@ -19,12 +19,16 @@
         <v-list three-line>
           <template v-for="(item, index) in userItems">
             <v-divider :key="index" />
-            <!-- <nuxt-link :to="{ name: 'postId', params: { postId: item.id }}">{{ item.title }}</nuxt-link> -->
             <v-list-item :key="item.title">
-              <v-list-item-content>
-                <v-list-item-title v-html="item.title" />
-                <v-list-item-subtitle v-html="item.subtitle" />
-              </v-list-item-content>
+              <nuxt-link
+                :to="{ name: 'postId', params: { postId: item.id } }"
+                class="list-item"
+              >
+                <v-list-item-content>
+                  <v-list-item-title v-html="item.title" />
+                  <v-list-item-subtitle v-html="item.subtitle" />
+                </v-list-item-content>
+              </nuxt-link>
             </v-list-item>
           </template>
         </v-list>
@@ -44,9 +48,12 @@ export default {
     )
 
     return { user, userItems }
-  },
-  data: () => ({
-    //
-  })
+  }
 }
 </script>
+
+<style scoped>
+.list-item {
+  max-width: 100%;
+}
+</style>

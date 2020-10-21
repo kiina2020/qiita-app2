@@ -76,10 +76,10 @@ export default {
   overflow: auto;
   white-space: pre-wrap;
   word-wrap: break-word;
-  border: solid 1px white;
   margin: 1rem;
   padding: 1rem;
-  color: gold;
+  color: #1f7087;
+  background-color: #ffffffb3;
 }
 
 hr {

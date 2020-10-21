@@ -26,10 +26,8 @@ export default {
   methods: {
     ...mapMutations(['setAuthState']),
     onClickLogin() {
-      // あとでstateを動的に
       // Qiita認証
       const scope = 'read_qiita'
-      // const state = 'FEDCBA9876543210' // FIXME:毎回生成するように修正
       const authState = Math.random().toString(32).substring(2) // 'a6dpgjqlq8g' 等
       this.setAuthState({ authState })
       const authUrl = `https://qiita.com/api/v2/oauth/authorize?client_id=${this.clientId}&scope=${scope}&state=${this.authState}`
